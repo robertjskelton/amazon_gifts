@@ -6,21 +6,22 @@ var driver = new webdriver.Builder()
     .forBrowser('chrome')
     .build();
 
+
 driver.get('http://www.amazon.com/');
 driver.findElement(By.linkText('Sign in')).click();
-driver.findElement(By.id('ap_email')).sendKeys(process.env.AMAZON_USERNAME);
-driver.findElement(By.id('ap_password')).sendKeys(process.env.AMAZON_PASSWORD);
+driver.findElement(By.id('ap_email')).sendKeys("PUT_USERNAME_HERE");
+driver.findElement(By.id('ap_password')).sendKeys("PUT_PASSWORD_HERE");
 driver.findElement(By.id('signInSubmit')).click();
-driver.findElement(By.linkText('Gift Cards')).click();
-driver.findElement(By.linkText('Amazon.com Gift Cards - E-mail Delivery')).click();
-driver.findElement(By.id('gc-order-form-custom-amount')).sendKeys('0.5');
-driver.findElement(By.id('gc-order-form-recipients')).sendKeys(process.env.AMAZON_USERNAME);
-driver.findElement(By.id('gc-order-form-senderName')).sendKeys(process.env.AMAZON_USERNAME);
-driver.findElement(By.id('gc-mini-cart-proceed-to-checkout')).click();
-driver.findElement(By.id('payment-change-link')).click();
-driver.wait(until.titleIs('Select a Payment Method - Amazon.com Checkout'), 3000);
-driver.findElement(By.xpath("//strong[contains(text(), 'Debit Card')]")).click();
-driver.findElement(By.id('continue-top')).click();
-driver.wait(until.titleIs('Place Your Order - Amazon.com Checkout'), 3000);
-driver.findElement(By.xpath("//input[@name='placeYourOrder1']")).click();
+
+for (i = 0; i < 12; i++) {
+	driver.get("https://www.amazon.com/Amazon-1-US-Email-eGift-Card/dp/B004LLIKVU/ref=sr_1_1?s=gift-cards&ie=UTF8&qid=1484266737&sr=1-1&keywords=gift+card");
+	driver.findElement(By.id('gc-order-form-custom-amount')).sendKeys('1.01');
+	driver.findElement(By.id('gc-order-form-recipients')).sendKeys("robertjskelton@gmail.com");
+	driver.findElement(By.id('gc-order-form-senderName')).sendKeys(i);
+	driver.findElement(By.id('gc-order-form-submit')).click();
+	driver.findElement(By.id('continue-top')).click();
+	driver.wait(until.titleIs('Place Your Order - Amazon.com Checkout'), 3000);
+	driver.findElement(By.xpath("//input[@name='placeYourOrder1']")).click();
+}
+
 driver.quit();
