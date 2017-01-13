@@ -20,5 +20,8 @@ Here is a guide on installing ChromeDriver: https://developers.supportbee.com/bl
 7. Once edited properly, run "node buy_card.js"
 
 
+## Notes
+
+This uses your Amazon accounts default card. If you're doing this to hit a certain number of purchases on a certain card, be sure to set that card as your default funding source before running this script. 
 
 
